@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "refreshUrl": "https://raw.githubusercontent.com/Locaryn/plugin-rag-qa/main/dist/marketplace.json",
+  "owns": [
+    "bge",
+    "nomic",
+    "minilm"
+  ],
+  "categories": [
+    {
+      "id": "rag-qa",
+      "label": "RAG & Embeddings",
+      "icon": "question",
+      "matches": [
+        "rag-qa"
+      ],
+      "requires": [
+        "rag-qa"
+      ]
+    }
+  ],
+  "models": [
+    {
+      "id": "bge-small-fr",
+      "name": "BGE Small French / Multilingual",
+      "brand": "BAAI",
+      "description": "Modèle d'embedding dense 384 dimensions rapide et optimisé pour la recherche documentaire.",
+      "license": "MIT",
+      "releaseDate": "2023-09-12",
+      "releaseYear": 2023,
+      "capabilities": [
+        "rag-qa"
+      ],
+      "variants": [
+        {
+          "size": "ONNX · 33M",
+          "params": 0.03,
+          "storageGb": 0.1,
+          "quants": [
+            "fp16"
+          ],
+          "tag": "https://huggingface.co/BAAI/bge-small-en-v1.5/resolve/main/model.onnx",
+          "downloads": []
+        }
+      ]
+    }
+  ]
+}

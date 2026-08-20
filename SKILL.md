@@ -1,8 +1,8 @@
 ---
 name: document-rag-qa
-description: Index local project documentation, PDFs, and codebase for semantic questions and answers.
+description: Indexer des documents et poser des questions avec recherche sémantique et citations.
 ---
 
-# Document RAG Skill
+# Compétence RAG & Q&R
 
-Use `answer_question` when the user asks questions about specific uploaded documents or knowledge bases.
+Utilisez `answer_question` pour rechercher des réponses factuelles sourcées dans les documents indexés.

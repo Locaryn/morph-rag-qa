@@ -2,31 +2,69 @@
   "$schema": "https://locaryn.dev/schema/plugin.json/v0.1",
   "apiVersion": "0.1",
   "name": "plugin-rag-qa",
-  "version": "1.0.0",
-  "description": "Document RAG (Retrieval-Augmented Generation) & Question-Answering pipeline.",
+  "version": "1.1.0",
+  "description": "Indexation vectorielle de documents locaux (PDF, Markdown, Code) et questions-réponses sémantiques.",
   "author": "Locaryn Team",
   "license": "Apache-2.0",
   "homepage": "https://github.com/Locaryn/plugin-rag-qa",
   "repository": "https://github.com/Locaryn/plugin-rag-qa",
-  "keywords": ["rag", "question-answering", "vector-store", "embeddings", "pdf-search"],
+  "keywords": [
+    "rag",
+    "question-answering",
+    "vector-store",
+    "embeddings",
+    "pdf-search",
+    "semantic-search"
+  ],
   "permissions": {
-    "files_read": true,
-    "files_write": true
+    "mcp": {
+      "reason": "Lancer le moteur de vectorisation et recherche sémantique locale."
+    },
+    "files.read": {
+      "reason": "Lire les documents PDF, Markdown et code sources à indexer."
+    },
+    "files.write": {
+      "reason": "Stocker la base vectorielle locale et les index."
+    }
   },
-  "capabilities": ["rag-qa"],
+  "components": {
+    "skills": [
+      "SKILL.md"
+    ],
+    "mcp": "mcp/mcp.json"
+  },
+  "capabilities": [
+    "rag-qa"
+  ],
   "ui_contributions": {
+    "slots": [
+      {
+        "id": "rag-qa-catalog",
+        "slot": "marketplace.catalogs",
+        "order": 17,
+        "type": "data",
+        "label": "Modèles d'embeddings & RAG",
+        "icon": "question",
+        "entry": "dist/marketplace.json",
+        "hint": "Ajoute les modèles d'embedding BGE et Nomic au catalogue"
+      },
+      {
+        "id": "rag-qa-studio",
+        "slot": "studio.tabs",
+        "order": 17,
+        "label": "Q&R Documents (RAG)",
+        "icon": "question",
+        "type": "custom-element",
+        "entry": "dist/ui.js",
+        "tag": "locaryn-rag-qa-panel",
+        "hint": "Indexation de dossiers et requêtes documentaires"
+      }
+    ],
     "nav_items": [
       {
         "id": "studio",
         "label": "Studio de génération",
         "icon": "image"
-      }
-    ],
-    "studio_tabs": [
-      {
-        "id": "question-answering",
-        "label": "Q&R Documents",
-        "icon": "question"
       }
     ]
   }
