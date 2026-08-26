@@ -1,13 +1,13 @@
 {
   "$schema": "https://locaryn.dev/schema/plugin.json/v0.1",
   "apiVersion": "0.1",
-  "name": "plugin-rag-qa",
+  "name": "extension-rag-qa",
   "version": "1.1.0",
   "description": "Indexation vectorielle de documents locaux (PDF, Markdown, Code) et questions-réponses sémantiques.",
   "author": "Locaryn Team",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/Locaryn/plugin-rag-qa",
-  "repository": "https://github.com/Locaryn/plugin-rag-qa",
+  "homepage": "https://github.com/Locaryn/extension-rag-qa",
+  "repository": "https://github.com/Locaryn/extension-rag-qa",
   "keywords": [
     "rag",
     "question-answering",
