@@ -41,13 +41,14 @@ pub async fn index_document(req: IndexDocumentRequest) -> Result<IndexDocumentRe
 
 pub async fn answer_question(req: RagQueryRequest) -> Result<RagQueryResponse, String> {
     Ok(RagQueryResponse {
-        answer: format!("Réponse basée sur le corpus documentaire pour: {}", req.query),
-        citations: vec![
-            RagChunkCitation {
-                file_path: "documentation.md".into(),
-                snippet: "Extrait documentaire pertinent.".into(),
-                score: 0.94,
-            }
-        ],
+        answer: format!(
+            "Réponse basée sur le corpus documentaire pour: {}",
+            req.query
+        ),
+        citations: vec![RagChunkCitation {
+            file_path: "documentation.md".into(),
+            snippet: "Extrait documentaire pertinent.".into(),
+            score: 0.94,
+        }],
     })
 }
