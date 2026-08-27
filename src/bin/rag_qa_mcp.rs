@@ -1,4 +1,4 @@
-//! Stdio MCP server shipped by plugin-rag-qa.
+//! Stdio MCP server shipped by morph-rag-qa.
 use locaryn_plugin_rag_qa::{answer_question, index_document, IndexDocumentRequest, RagQueryRequest};
 use serde_json::{json, Value};
 use std::io::Write;
@@ -29,7 +29,7 @@ async fn handle_request(request: Value) -> Value {
         "initialize" => success(id, json!({
             "protocolVersion": "2025-06-18",
             "capabilities": { "tools": {} },
-            "serverInfo": { "name": "plugin-rag-qa", "version": VERSION }
+            "serverInfo": { "name": "morph-rag-qa", "version": VERSION }
         })),
         "tools/list" => success(id, tools_list()),
         "tools/call" => {

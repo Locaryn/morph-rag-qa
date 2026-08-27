@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "refreshUrl": "https://raw.githubusercontent.com/Locaryn/plugin-rag-qa/main/dist/marketplace.json",
+  "refreshUrl": "https://raw.githubusercontent.com/Locaryn/morph-rag-qa/main/dist/marketplace.json",
   "owns": [
     "bge",
     "nomic",
