@@ -1,7 +1,7 @@
 {
   "mcpServers": {
     "rag-qa": {
-      "command": "${LOCARYN_PLUGIN_ROOT}/bin/locaryn-rag-qa-mcp",
+      "command": "${LOCARYN_MORPH_ROOT}/bin/locaryn-rag-qa-mcp",
       "args": [],
       "env": {
         "RUST_LOG": "warn"
