@@ -32,23 +32,16 @@ pub struct RagQueryResponse {
     pub citations: Vec<RagChunkCitation>,
 }
 
-pub async fn index_document(req: IndexDocumentRequest) -> Result<IndexDocumentResult, String> {
-    Ok(IndexDocumentResult {
-        chunks_indexed: 42,
-        status: format!("Document {} indexé avec succès.", req.file_path),
-    })
+/// Non implemente. La signature est conservee pour que l'interface et le
+/// serveur MCP gardent leur forme, mais l'appel echoue franchement plutot
+/// que de fabriquer un resultat.
+pub async fn index_document(_req: IndexDocumentRequest) -> Result<IndexDocumentResult, String> {
+    Err("L'indexation n'est pas implementee : ce morph ne calcule aucun plongement et n'ecrit dans aucun index.".into())
 }
 
-pub async fn answer_question(req: RagQueryRequest) -> Result<RagQueryResponse, String> {
-    Ok(RagQueryResponse {
-        answer: format!(
-            "Réponse basée sur le corpus documentaire pour: {}",
-            req.query
-        ),
-        citations: vec![RagChunkCitation {
-            file_path: "documentation.md".into(),
-            snippet: "Extrait documentaire pertinent.".into(),
-            score: 0.94,
-        }],
-    })
+/// Non implemente. La signature est conservee pour que l'interface et le
+/// serveur MCP gardent leur forme, mais l'appel echoue franchement plutot
+/// que de fabriquer un resultat.
+pub async fn answer_question(_req: RagQueryRequest) -> Result<RagQueryResponse, String> {
+    Err("La reponse sur corpus n'est pas implementee : ce morph n'interroge aucun index. Les citations renvoyees auparavant etaient inventees.".into())
 }
