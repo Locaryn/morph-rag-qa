@@ -1,6 +1,6 @@
 //! Stdio MCP server shipped by morph-rag-qa.
 use locaryn_plugin_rag_qa::{
-    answer_question, index_document, IndexDocumentRequest, RagQueryRequest,
+    answer_question, clear_index, index_document, rag_status, IndexDocumentRequest, RagQueryRequest,
 };
 use serde_json::{json, Value};
 use std::io::Write;
@@ -35,11 +35,7 @@ async fn handle_request(request: Value) -> Value {
     match method {
         "initialize" => success(
             id,
-            json!({
-                "protocolVersion": "2025-06-18",
-                "capabilities": { "tools": {} },
-                "serverInfo": { "name": "morph-rag-qa", "version": VERSION }
-            }),
+            json!({ "protocolVersion": "2025-06-18", "capabilities": { "tools": {} }, "serverInfo": { "name": "morph-rag-qa", "version": VERSION } }),
         ),
         "tools/list" => success(id, tools_list()),
         "tools/call" => {
@@ -63,28 +59,7 @@ async fn handle_request(request: Value) -> Value {
 }
 
 fn tools_list() -> Value {
-    json!({
-        "tools": [
-            {
-                "name": "index_document",
-                "description": "Indexe un fichier ou répertoire dans la base vectorielle locale.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": { "file_path": { "type": "string", "description": "Chemin du fichier à indexer" } },
-                    "required": ["file_path"]
-                }
-            },
-            {
-                "name": "answer_question",
-                "description": "Interroge la base documentaire (RAG) et retourne la réponse avec citations de sources.",
-                "inputSchema": {
-                    "type": "object",
-                    "properties": { "query": { "type": "string", "description": "Question ou recherche sémantique" } },
-                    "required": ["query"]
-                }
-            }
-        ]
-    })
+    json!({ "tools": [ { "name": "index_document", "description": "Découpe un fichier texte, fait calculer les vecteurs de chaque morceau par le moteur local, et les range dans l'index du morph. Réindexer la même source la remplace.", "inputSchema": { "type": "object", "properties": { "file_path": { "type": "string", "description": "Chemin du fichier à indexer" }, "chunk_size": { "type": "integer", "description": "Taille d'un morceau en caractères" } }, "required": ["file_path"] } }, { "name": "answer_question", "description": "Retrouve les passages du corpus qui répondent à la question, avec leur source et leur proximité. NE RÉDIGE PAS la réponse : c'est à vous de répondre à partir des passages rendus. Une liste vide veut dire que le corpus ne parle pas du sujet — dites-le plutôt que de combler.", "inputSchema": { "type": "object", "properties": { "query": { "type": "string", "description": "La question" }, "top_k": { "type": "integer", "description": "Nombre maximum de passages (défaut 5)" } }, "required": ["query"] } }, { "name": "rag_status", "description": "Ce que contient l'index : nombre de morceaux, sources, modèle de plongement et adresse du moteur.", "inputSchema": { "type": "object", "properties": {} } }, { "name": "clear_index", "description": "Retire une source de l'index, ou tout l'index si aucune n'est nommée.", "inputSchema": { "type": "object", "properties": { "source": { "type": "string", "description": "Source à retirer" } } } } ] })
 }
 
 async fn call_tool(name: &str, args: Value) -> Result<Value, String> {
@@ -100,6 +75,11 @@ async fn call_tool(name: &str, args: Value) -> Result<Value, String> {
                 serde_json::from_value(args).map_err(|e| format!("Paramètres invalides: {e}"))?;
             let res = answer_question(req).await?;
             Ok(json!(res))
+        }
+        "rag_status" => Ok(json!(rag_status()?)),
+        "clear_index" => {
+            let source = args.get("source").and_then(Value::as_str);
+            Ok(json!(clear_index(source)?))
         }
         _ => Err(format!("Outil RAG inconnu : {name}")),
     }
