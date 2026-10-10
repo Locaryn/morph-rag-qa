@@ -3,8 +3,9 @@
   "refreshUrl": "https://raw.githubusercontent.com/Locaryn/morph-rag-qa/main/dist/marketplace.json",
   "owns": [
     "bge",
-    "nomic",
-    "minilm"
+    "bge-m3",
+    "minilm",
+    "nomic"
   ],
   "categories": [
     {
@@ -21,25 +22,25 @@
   ],
   "models": [
     {
-      "id": "bge-small-fr",
-      "name": "BGE Small French / Multilingual",
+      "id": "bge-m3",
+      "name": "BGE-M3 (multilingue)",
       "brand": "BAAI",
-      "description": "Modèle d'embedding dense 384 dimensions rapide et optimisé pour la recherche documentaire.",
+      "description": "Plongements multilingues (français compris) en 1024 dimensions pour la recherche documentaire, servis par llama.cpp.",
       "license": "MIT",
-      "releaseDate": "2023-09-12",
-      "releaseYear": 2023,
+      "releaseDate": "2024-01-30",
+      "releaseYear": 2024,
       "capabilities": [
         "rag-qa"
       ],
       "variants": [
         {
-          "size": "ONNX · 33M",
-          "params": 0.03,
-          "storageGb": 0.1,
+          "size": "GGUF · 568M",
+          "params": 0.57,
+          "storageGb": 0.63,
           "quants": [
-            "fp16"
+            "Q8_0"
           ],
-          "tag": "https://huggingface.co/BAAI/bge-small-en-v1.5/resolve/main/model.onnx",
+          "tag": "https://huggingface.co/gpustack/bge-m3-GGUF/resolve/main/bge-m3-Q8_0.gguf",
           "downloads": []
         }
       ]
